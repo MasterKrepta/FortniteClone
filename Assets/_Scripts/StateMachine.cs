@@ -8,7 +8,7 @@ public class StateMachine : MonoBehaviour
 
     private void Update()
     {
-        _currentState?.Tick();
+        _currentState?.Tick(Time.deltaTime);
     }
     public void SwitchState(State newState)
     {
