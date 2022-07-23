@@ -4,7 +4,13 @@ using UnityEngine;
 
 public abstract class PlayerBaseState : State
 {
+#region VARS
+
     protected PlayerStateMachine _stateMachine;
+
+    
+#endregion
+
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
     {
@@ -16,7 +22,7 @@ public abstract class PlayerBaseState : State
         _stateMachine.Controller.Move(motion * deltaTime);
     }
 
-     public Vector3 CalculateMovement()
+    public Vector3 CalculateMovement()
     {
         Vector3 fwd = _stateMachine.MainCameraTransform.forward;
         Vector3 right = _stateMachine.MainCameraTransform.right;
@@ -28,15 +34,24 @@ public abstract class PlayerBaseState : State
         right.Normalize();
 
         return fwd * _stateMachine.InputController.MovementValue.y +
-                right * _stateMachine.InputController.MovementValue.x;
-
+        right * _stateMachine.InputController.MovementValue.x;
     }
-      public void FaceMovementDirection(Vector3 movement, float deltaTime)
+
+    public void FaceMovementDirection(Vector3 movement, float deltaTime)
     {
-        if(movement == Vector3.zero) return;{}
+        if (movement == Vector3.zero) return;
+        {
+        }
 
-        _stateMachine.transform.rotation = Quaternion.Lerp(_stateMachine.transform.rotation,
-                                                            Quaternion.LookRotation(movement),
-                                                            deltaTime * _stateMachine.RotationDamping);
+        _stateMachine.transform.rotation =
+            Quaternion
+                .Lerp(_stateMachine.transform.rotation,
+                Quaternion.LookRotation(movement),
+                deltaTime * _stateMachine.RotationDamping);
     }
+
+//   public void HandleSprint(){
+  
+//     _stateMachine.SwitchState(new PlayerSprintState(_stateMachine));
+//   }
 }

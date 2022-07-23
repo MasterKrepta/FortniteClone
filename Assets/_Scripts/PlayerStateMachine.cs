@@ -6,6 +6,7 @@ public class PlayerStateMachine : StateMachine
 {
      [field: SerializeField] public float RotationDamping { get; private set; }
       [field: SerializeField] public float BaseMoveSpeed { get; private set; }
+        [field: SerializeField] public float SprintMoveSpeed { get; private set; }
     [field: SerializeField]public Transform MainCameraTransform { get; private set; }
 
     [field: SerializeField]
@@ -22,4 +23,5 @@ public class PlayerStateMachine : StateMachine
         InputController = GetComponent<InputController>();
         SwitchState(new PlayerRifleCombatState(this));
     }
+    
 }

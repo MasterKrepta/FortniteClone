@@ -15,11 +15,16 @@ public class PlayerRifleCombatState : PlayerBaseState
 
     public override void Enter()
     {
-        _stateMachine.Anim.CrossFadeInFixedTime (LOCOMOTION_HASH, CROSSFADE);
+          _stateMachine.Anim.CrossFadeInFixedTime (LOCOMOTION_HASH, CROSSFADE);
     }
 
     public override void Tick(float deltaTime)
     {
+        if (_stateMachine.InputController.IsSprinting)
+        {
+            _stateMachine.SwitchState(new PlayerSprintState(_stateMachine));
+            return;
+        }
         Vector3 movement = CalculateMovement();
 
         Move(movement * _stateMachine.BaseMoveSpeed, deltaTime);
@@ -36,5 +41,6 @@ public class PlayerRifleCombatState : PlayerBaseState
 
     public override void Exit()
     {
+
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,14 @@ using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour, Controls.IPlayerActions
 {
-    // Start is called b
-      public Vector2 MovementValue { get; private set; }
+    public Vector2 MovementValue { get; private set; }
+
+    public bool IsSprinting { get; private set; }
+
+    public Action OnSprintEvent;
 
     private Controls _controls;
+
     private void Start()
     {
         _controls = new Controls();
@@ -16,13 +21,28 @@ public class InputController : MonoBehaviour, Controls.IPlayerActions
 
         _controls.Player.Enable();
     }
+
     public void OnMovement(InputAction.CallbackContext context)
     {
-       MovementValue = context.ReadValue<Vector2>();
+        MovementValue = context.ReadValue<Vector2>();
     }
 
     public void OnAiming(InputAction.CallbackContext context)
     {
-       
+    }
+
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+ 
+        if (context.performed) IsSprinting = true;
+        if (context.canceled) IsSprinting = false;
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+    }
+
+    public void OnBuildMode(InputAction.CallbackContext context)
+    {
     }
 }
