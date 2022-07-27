@@ -15,7 +15,6 @@ public class PlayerSprintState : PlayerBaseState
     public override void Enter()
     {
         _stateMachine.Anim.CrossFadeInFixedTime (SPRINT_HASH, CROSSFADE);
-        Debug.Log("sprint");
     }
 
     public override void Tick(float deltaTime)

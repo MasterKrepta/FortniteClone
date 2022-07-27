@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public abstract class PlayerBaseState : State
 {
-#region VARS
+    #region VARS
 
     protected PlayerStateMachine _stateMachine;
 
-    
-#endregion
+
+    #endregion
 
 
     public PlayerBaseState(PlayerStateMachine stateMachine)
@@ -32,9 +33,17 @@ public abstract class PlayerBaseState : State
 
         fwd.Normalize();
         right.Normalize();
-
+        
         return fwd * _stateMachine.InputController.MovementValue.y +
         right * _stateMachine.InputController.MovementValue.x;
+
+        // Vector3 movement = new Vector3();
+
+        // movement += _stateMachine.transform.right * _stateMachine.InputController.MovementValue.x;
+        // movement += _stateMachine.transform.forward * _stateMachine.InputController.MovementValue.y;
+        // return movement;
+
+        
     }
 
     public void FaceMovementDirection(Vector3 movement, float deltaTime)
@@ -50,8 +59,22 @@ public abstract class PlayerBaseState : State
                 deltaTime * _stateMachine.RotationDamping);
     }
 
-//   public void HandleSprint(){
-  
-//     _stateMachine.SwitchState(new PlayerSprintState(_stateMachine));
-//   }
+    protected void FaceTarget()
+    {
+        Ray ray = _stateMachine.MainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Vector3 lookDir = (hit.point - _stateMachine.transform.position);
+            lookDir.y = 0;
+
+            _stateMachine.transform.rotation = Quaternion.LookRotation(lookDir);
+        }
+
+
+    }
+
+    //   public void HandleSprint(){
+
+    //     _stateMachine.SwitchState(new PlayerSprintState(_stateMachine));
+    //   }
 }
