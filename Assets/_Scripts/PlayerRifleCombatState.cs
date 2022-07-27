@@ -29,8 +29,7 @@ public class PlayerRifleCombatState : PlayerBaseState
 
         Move(movement * _stateMachine.BaseMoveSpeed, deltaTime);
 
-        //FaceTarget();
-        FaceMovementDirection (movement, deltaTime);
+        //FaceMovementDirection (movement, deltaTime);
 
         if (movement == Vector3.zero)
         {
