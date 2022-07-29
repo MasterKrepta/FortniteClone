@@ -18,6 +18,7 @@ public class PlayerRifleCombatState : PlayerBaseState
     public override void Enter()
     {
           _stateMachine.Anim.CrossFadeInFixedTime (LOCOMOTION_HASH, CROSSFADE);
+          _stateMachine.InputController.OnShootEvent += _stateMachine.Weapon.Fire;
     }
 
     public override void Tick(float deltaTime)
@@ -45,6 +46,6 @@ public class PlayerRifleCombatState : PlayerBaseState
 
     public override void Exit()
     {
-
+_stateMachine.InputController.OnShootEvent -= _stateMachine.Weapon.Fire;
     }
 }

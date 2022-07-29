@@ -11,6 +11,7 @@ public class InputController : MonoBehaviour, Controls.IPlayerActions
     public bool IsSprinting { get; private set; }
 
     public Action OnSprintEvent;
+    public Action OnShootEvent;
 
     private Controls _controls;
 
@@ -44,5 +45,11 @@ public class InputController : MonoBehaviour, Controls.IPlayerActions
 
     public void OnBuildMode(InputAction.CallbackContext context)
     {
+    }
+
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnShootEvent?.Invoke();
     }
 }

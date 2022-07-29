@@ -9,6 +9,7 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float SprintMoveSpeed { get; private set; }
     [field: SerializeField] public Transform MainCameraTransform { get; private set; }
     [field: SerializeField] public Camera MainCamera { get; private set; }
+    [field: SerializeField] public Weapon Weapon {get; private set;}
 
     [field: SerializeField]
     public InputController InputController { get; private set; }
