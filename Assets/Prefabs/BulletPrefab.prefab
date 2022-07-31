@@ -111,7 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2010a45888eaec048ab47ce79f67c5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 1500
+  bulletSpeed: 50
+  decal: {fileID: 945252359352496998, guid: 71d9382e3f49d5a439bbcc77ec697eed, type: 3}
+  lifetime: 1
 --- !u!54 &8882387354425125599
 Rigidbody:
   m_ObjectHideFlags: 0

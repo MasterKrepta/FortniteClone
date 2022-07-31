@@ -9,6 +9,8 @@ public class PlayerRifleCombatState : PlayerBaseState
     readonly int HOR_HASH = Animator.StringToHash("Hor");
 
     const float CROSSFADE = .1f;
+  
+  
 
     public PlayerRifleCombatState(PlayerStateMachine stateMachine) :
         base(stateMachine)
@@ -19,6 +21,7 @@ public class PlayerRifleCombatState : PlayerBaseState
     {
           _stateMachine.Anim.CrossFadeInFixedTime (LOCOMOTION_HASH, CROSSFADE);
           _stateMachine.InputController.OnShootEvent += _stateMachine.Weapon.Fire;
+          Cursor.lockState = CursorLockMode.Locked;
     }
 
     public override void Tick(float deltaTime)

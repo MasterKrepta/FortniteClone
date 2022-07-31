@@ -5,30 +5,33 @@ using UnityEngine.Pool;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] Transform weaponPoint;
-    [SerializeField] Transform BulletPrefab;
-    ObjectPool<Transform> _pool;
+    [SerializeField] Transform weaponPoint, camTransform;
+    [SerializeField] GameObject BulletPrefab;
+    [SerializeField] float missDistance;
+    [SerializeField] LayerMask mask;
+    
 
     void Awake()
     {
-        _pool = new ObjectPool<Transform>(() =>
-        {
-            return Instantiate(BulletPrefab);
-        }, bullet =>
-        {
-            bullet.gameObject.SetActive(true);
-        }, bullet =>
-        {
-            bullet.gameObject.SetActive(false);
-        }, bullet =>
-        {
-            Destroy(bullet.gameObject);
-        }, false, 10, 20);
+
 
     }
     public void Fire()
     {
-        Instantiate(BulletPrefab, weaponPoint.position, weaponPoint.transform.rotation);
+        RaycastHit hit;
+
+        GameObject bullet =  Instantiate(BulletPrefab, weaponPoint.position, weaponPoint.transform.rotation);
+        MoveForward bulletController = bullet.GetComponent<MoveForward>();
+        if(Physics.Raycast(camTransform.position, camTransform.forward, out hit, Mathf.Infinity, mask))
+        {
+            bulletController.target = hit.point;    
+            bulletController.hit = true;
+        } else 
+        {
+            bulletController.target = camTransform.position + camTransform.forward * missDistance;    
+            bulletController.hit = false;
+        }
+        
     }
 }
 
